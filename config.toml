@@ -11,7 +11,7 @@ IpAddresses = [
 DenyExtensions = [
     "php",
     "aspx",
-#    "sh",
+    "sh",
     "html",
     "jsp"
 ]
