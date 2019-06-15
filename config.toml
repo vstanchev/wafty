@@ -1,0 +1,17 @@
+Upstream = "http://127.0.0.1:8000"
+
+ListenAddress = ":8080"
+
+IpFilterMode = "whitelist"
+
+IpAddresses = [
+    "127.0.0.1"
+]
+
+DenyExtensions = [
+    "php",
+    "aspx",
+#    "sh",
+    "html",
+    "jsp"
+]
