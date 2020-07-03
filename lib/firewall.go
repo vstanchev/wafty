@@ -23,7 +23,6 @@ func ServeReverseProxy(config WafConfig, res http.ResponseWriter, req *http.Requ
 		return
 	}
 
-
 	// Test for injection attacks.
 	if requestContainsInjection(req) {
 		blockRequest(res)
@@ -35,8 +34,8 @@ func ServeReverseProxy(config WafConfig, res http.ResponseWriter, req *http.Requ
 		req.Body = ioutil.NopCloser(bytes.NewBuffer(reqBody))
 
 		//Check if this is a file upload request.
-		err := req.ParseMultipartForm(5*1024*1024)
-		if  err == nil {
+		err := req.ParseMultipartForm(5 * 1024 * 1024)
+		if err == nil {
 
 			// Prepare file extensions in a regular expression.
 			blockExtensions := strings.Join(config.DenyExtensions, "|")
@@ -60,7 +59,6 @@ func ServeReverseProxy(config WafConfig, res http.ResponseWriter, req *http.Requ
 		req.Body = ioutil.NopCloser(bytes.NewBuffer(reqBody))
 	}
 
-
 	// All checks passed, prepare the proxy.
 	targetUrl, _ := url.Parse(config.Upstream)
 	director := func(req *http.Request) {
@@ -72,6 +70,7 @@ func ServeReverseProxy(config WafConfig, res http.ResponseWriter, req *http.Requ
 	proxy := httputil.ReverseProxy{Director: director}
 
 	log.Printf("Forwarding request to %s\n", config.Upstream)
+	log.Printf("%s %s %s\n", req.RemoteAddr, req.Method, req.URL)
 	proxy.ServeHTTP(res, req)
 
 	// Remove sensitive information.
@@ -97,7 +96,7 @@ func requestContainsInjection(req *http.Request) bool {
 	}
 
 	// Check form params.
-	if  req.ParseForm() == nil {
+	if req.ParseForm() == nil {
 		for _, values := range req.PostForm {
 			for _, value := range values {
 				if stringContainsInjection(value) {

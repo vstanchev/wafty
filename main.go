@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 func handleProxyRequest(config lib.WafConfig) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		lib.ServeReverseProxy(config, res, req)

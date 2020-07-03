@@ -7,11 +7,11 @@ import (
 )
 
 type WafConfig struct {
-	Upstream 		string
-	ListenAddress 	string
-	IpFilterMode 	string
-	IpAddresses 	[]string
-	DenyExtensions	[]string
+	Upstream       string
+	ListenAddress  string
+	IpFilterMode   string
+	IpAddresses    []string
+	DenyExtensions []string
 }
 
 func LoadConfig(filename string) WafConfig {

@@ -1,11 +1,12 @@
-Upstream = "http://127.0.0.1:8000"
+Upstream = "http://127.0.0.1:8001"
 
 ListenAddress = ":8080"
 
 IpFilterMode = "whitelist"
 
 IpAddresses = [
-    "127.0.0.1"
+    "127.0.0.1",
+    "::1"
 ]
 
 DenyExtensions = [
